@@ -21,6 +21,7 @@
         <td>{{member.isMemberFeePaid}}</td>
         <td>{{member.totalExpenses}}</td>
         <td>
+            <button routerLink="/member/{{member.id}}/edit" class="btn btn-sm btn-default">Edit</button>
             <button (click)="removeMember(member)" class="btn btn-sm btn-danger">Remove</button>
         </td>
     </tr>

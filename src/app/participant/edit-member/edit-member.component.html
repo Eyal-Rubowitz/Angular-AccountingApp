@@ -1,0 +1,37 @@
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>Edit Member</h4>
+                </div>
+                <div class="panel-body">
+                    <form [formGroup]="form" (submit)="saveMember()">
+                        <div class="form-group">
+                        <label class="panel-title">Full Name: </label>
+                        <input formControlName="name" class="form-control">
+                        </div>
+                        <div>
+                            <input type="submit" value="Save update" class="btn btn-sm btn-success" />
+                        </div> 
+                    </form>
+                    <!-- <h3 class="panel-title">Full Name: </h3>
+                    <h3 class="panel-title">Phone Number</h3>
+                    <h3 class="panel-title">Email</h3>
+                    <h3 class="panel-title">Balence</h3>
+                    <h3 class="panel-title">Memeber Fee</h3>
+                    <h3 class="panel-title">Is Paid?</th>
+                    <h3 class="panel-title">Total Expenses</h3> -->
+                    <!-- <h3 >{{member.phoneNumber}}</h3>
+                    <h3 >{{member.email}}</h3>
+                    <h3>{{member.memberBalance}}</h3>
+                    <h3>{{member.memberFee}}</h3>
+                    <h3>{{member.isMemberFeePaid}}</h3>
+                    <h3>{{member.totalExpenses}}</h3> -->
+      
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

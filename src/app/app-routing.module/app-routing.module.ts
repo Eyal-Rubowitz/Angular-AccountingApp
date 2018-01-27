@@ -5,6 +5,7 @@ import { AppComponent } from '../app.component';
 import { MembersComponent } from '../participant/members.component/members.component';
 import { TransactionComponent } from '../transactions/transaction.component/transaction.component';
 import { PageNotFoundComponent } from '../app-components/page-not-found.component/page-not-found.component';
+import { EditMemberComponent } from '../participant/edit-member/edit-member.component';
 
 import { Route } from '@angular/router/src/config';
 
@@ -17,6 +18,10 @@ export const appRoutes: Routes = [
     {
         path: 'members',
         component: MembersComponent
+    },
+    {
+        path: 'member/:id/edit',
+        component: EditMemberComponent
     },
     {
         path: 'transactions',
