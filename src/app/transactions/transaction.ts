@@ -1,6 +1,7 @@
 import {Participant} from '../participant/participant';
 
 export class Transaction{
+    public id: string;
     constructor(public itemName?: string,
                 public paymentDescription?: string,
                 public amount?: number,

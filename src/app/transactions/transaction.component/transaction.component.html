@@ -9,12 +9,14 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let transaction of transactions">
+        <tr *ngFor="let transaction of transactions | async">
                 <td>{{transaction.itemName}}</td>
-                <td>{{transaction.whosPaying.name}}</td>
-                <td>{{transaction.whosReciving.name}}</td>
+                <td (click)="foobar(transaction.whosPaying)">
+                    {{(transaction.whosPaying | doc | async)?.name }}
+                </td>
+                <td>{{(transaction.whosReciving | doc | async )?.name}}</td>
                 <td>{{transaction.amount}}</td>
-                <td>{{transaction.date}}</td>
+                <td>{{transaction.date | date}}</td>
         </tr>
     </tbody>
 </table>

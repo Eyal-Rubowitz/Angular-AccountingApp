@@ -12,7 +12,7 @@
     </tr>
 </thead>
 <tbody>
-    <tr *ngFor="let member of members">
+    <tr *ngFor="let member of members | async">
         <td>{{member.name}}</td>
         <td >{{member.phoneNumber}}</td>
         <td >{{member.email}}</td>

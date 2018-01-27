@@ -7,6 +7,7 @@ export class Participant{
     public isMemberFeePaid: boolean;
     public otherExpenses: Transaction[]; 
     public totalExpenses : number;
+    public id : string;
 
     constructor(public name?: string,
                 public phoneNumber?: string,
