@@ -1,0 +1,46 @@
+<table class="table table-striped">
+    <thead>
+    <tr>
+            <th>Full Name</th>
+            <th>Phone Number</th>
+            <th>Email</th>
+            <th>Balence</th>
+            <th>Memeber Fee</th>
+            <th>Is Paid?</th>
+            <th>Total Expenses</th>
+            <th></th>
+    </tr>
+</thead>
+<tbody>
+    <tr *ngFor="let member of members">
+        <td>{{member.name}}</td>
+        <td >{{member.phoneNumber}}</td>
+        <td >{{member.email}}</td>
+        <td>{{member.memberBalance}}</td>
+        <td>{{member.memberFee}}</td>
+        <td>{{member.isMemberFeePaid}}</td>
+        <td>{{member.totalExpenses}}</td>
+        <td>
+            <button (click)="removeMember(member)" class="btn btn-sm btn-danger">Remove</button>
+        </td>
+    </tr>
+
+</tbody>
+</table>
+<form  (submit)="addMember()">
+<table  class="table">
+        <tr>
+                <td>
+                    <input placeholder="Full Name" [(ngModel)]="newMember.name" required name="name" class="form-control">
+                </td>
+                <td> 
+                    <input  placeholder="Phone" [(ngModel)]="newMember.phoneNumber" name="phone" class="form-control"></td>
+                <td> 
+                    <input  placeholder="Email" type="email" [(ngModel)]="newMember.email" name="email" class="form-control"></td>
+                <td colspan="4">
+                    <input type="submit" value="Add" class="btn btn-default" />
+                </td>
+            </tr>
+</table>
+
+</form>

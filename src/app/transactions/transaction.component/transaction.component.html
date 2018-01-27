@@ -1,0 +1,20 @@
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+                <th>Transaction Type</th>
+                <th>Who pay</th>
+                <th>Who receve</th>
+                <th>Money Amount</th>
+                <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let transaction of transactions">
+                <td>{{transaction.itemName}}</td>
+                <td>{{transaction.whosPaying.name}}</td>
+                <td>{{transaction.whosReciving.name}}</td>
+                <td>{{transaction.amount}}</td>
+                <td>{{transaction.date}}</td>
+        </tr>
+    </tbody>
+</table>
