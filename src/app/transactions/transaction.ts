@@ -5,10 +5,10 @@ export class Transaction{
     constructor(public itemName?: string,
                 public paymentDescription?: string,
                 public amount?: number,
-                public whosPaying?: Participant,
-                public whosReciving?: Participant,
+                public whosPaying?: string,
+                public whosReciving?: string,
                 public date?: Date,
-                public ExecuteStatus?: boolean,
+                public executeStatus?: boolean,
                 public billPicture?: string
                 ){}
 }

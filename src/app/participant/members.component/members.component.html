@@ -28,18 +28,53 @@
 
 </tbody>
 </table>
+
 <form  (submit)="addMember()">
 <table  class="table">
         <tr>
                 <td>
-                    <input placeholder="Full Name" [(ngModel)]="newMember.name" required name="name" class="form-control">
+                    <input 
+                    placeholder="Full Name"
+                    type="text" 
+                    [(ngModel)]="newMember.name" 
+                    required 
+                    minlength="3"
+                    maxlength="40"
+                    name="name" 
+                    #name="ngModel" 
+                    class="form-group form-control ng-invalid ng-touched">
+
+                    <div  class="alert alert-danger" *ngIf="name.touched && !name.valid">
+                        Participant name is required!
+                    </div>
                 </td>
                 <td> 
-                    <input  placeholder="Phone" [(ngModel)]="newMember.phoneNumber" name="phone" class="form-control"></td>
+                    <input  
+                    placeholder="Phone" 
+                    type="text"
+                    [(ngModel)]="newMember.phoneNumber" 
+                    name="phone"
+                    #phone="ngModel" 
+                    class="form-group form-control ng-invalid ng-touched">
+                </td>
                 <td> 
-                    <input  placeholder="Email" type="email" [(ngModel)]="newMember.email" name="email" class="form-control"></td>
+                    <input  
+                    placeholder="Email" 
+                    type="email" 
+                    [(ngModel)]="newMember.email" 
+                    name="email" 
+                    #email="ngModel"
+                    class="form-group form-control ng-invalid ng-touched">
+
+                    <div class="alert alert-danger" *ngIf="name.touched && !name.valid">
+                        Enter valid email address!
+                    </div>
+                </td>
                 <td colspan="4">
-                    <input type="submit" value="Add" class="btn btn-default" />
+                    <input 
+                    type="submit" 
+                    value="Add" 
+                    class="btn btn-default" />
                 </td>
             </tr>
 </table>

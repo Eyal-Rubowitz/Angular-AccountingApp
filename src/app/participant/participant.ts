@@ -22,6 +22,7 @@ export class Participant{
                 this.otherExpenses.forEach(transaction => {
                     this.totalExpenses += transaction.amount;
                });
+               
                this.memberBalance = (this.totalExpenses - this.memberFee);
 
                 if(this.totalExpenses >= this.memberFee){

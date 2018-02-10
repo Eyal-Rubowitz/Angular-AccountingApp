@@ -6,17 +6,140 @@
                 <th>Who receve</th>
                 <th>Money Amount</th>
                 <th>Date</th>
+                <th></th>
         </tr>
     </thead>
     <tbody>
+        <!-- (click)="foobar(transaction.whosPaying)"> -->
         <tr *ngFor="let transaction of transactions | async">
                 <td>{{transaction.itemName}}</td>
-                <td (click)="foobar(transaction.whosPaying)">
-                    {{(transaction.whosPaying | doc | async)?.name }}
-                </td>
-                <td>{{(transaction.whosReciving | doc | async )?.name}}</td>
+                <td>{{(transaction.whosPaying | doc | async)?.name }}</td>
+                <td>{{(transaction.whosReciving | doc | async)?.name}}</td>
                 <td>{{transaction.amount}}</td>
-                <td>{{transaction.date | date}}</td>
-        </tr>
+                <td>{{transaction.date | date : 'shortTime' : '+0200'}}</td>
+                <td>
+                <button type="button" (click)="removeTransaction(transaction)" class="btn btn-sm btn-danger">Remove</button>
+                </td>
+            </tr>
+
     </tbody>
 </table>
+
+<form (submit)="addTransaction(form)" #form>
+        <table class="table">
+            <tr>
+                  <td>
+                      
+                    <input 
+                    placeholder="Item Name" 
+                    type="text"
+                    pattern="[A-Za-z ]{3,40}"
+                    [(ngModel)]="newTransaction.itemName"
+                    required 
+                    minlength="2" 
+                    ngModel 
+                    name="itemName"
+                    #itemName="ngModel" 
+                    class="form-group form-control">
+                    
+                    <div class="alert alert-danger" *ngIf="(itemName.touched || submitted) && !itemName.valid">
+                        Item name is requierd!
+                    </div>
+                </td>
+                <!-- <td>
+                    <input 
+                    placeholder="Description" 
+                    [(ngModel)]="newTransaction.paymentDescription" 
+                    name="paymentDescription" 
+                    class="form-control form-group">
+                </td>  -->
+                <td class="amount">
+                    <input 
+                    placeholder="Money Amount" 
+                    type="text"
+                    pattern="[0-9]+"
+                    [(ngModel)]="newTransaction.amount"
+                    required
+                    min=1
+                    name="amount"
+                    #amount="ngModel" 
+                    class="form-group form-control ng-invalid ng-touched">
+
+                    <div class="alert alert-danger" *ngIf="(amount.touched  || submitted) && !amount.valid">
+                            Input must be greater than zero!
+                    </div>
+
+                </td>
+                <td>
+                    <select 
+                    [(ngModel)]="newTransaction.whosPaying" 
+                    required
+                    name="whosPaying" 
+                    ngModel
+                    #whosPaying="ngModel"
+                    class="form-control form-group">
+                    <option [ngValue]="undefined">Paying Member</option>    
+                    <option 
+                        *ngFor="let member of members | async" 
+                        [value]="member.id">
+                        {{member.name}}
+                        </option>
+                    </select>
+                    <div class="alert alert-danger" *ngIf="(whosPaying.touched || submitted) && !whosPaying.valid">
+                            Choose who's paying!
+                    </div>
+                </td>
+                <td>
+                    <select 
+                   
+                    [(ngModel)]="newTransaction.whosReciving" 
+                    required
+                    ngModel
+                    name="whosReciving" 
+                    #whosReciving="ngModel"
+                    class="form-control form-group" >
+                        <option [ngValue]="undefined">Reciving Member</option>  
+                        <option 
+                        *ngFor="let member of members | async" 
+                        [value]="member.id">
+                        {{member.name}}
+                        </option>
+                    </select>
+                    <div class="alert alert-danger" *ngIf="(whosReciving.touched || submitted) && !whosReciving.valid">
+                            Choose who's reciving!
+                    </div>
+                </td>
+                <td>
+                    <input 
+                    placeholder="Date: m/d/yy" 
+                    type="date"
+                    [ngModel]="newTransaction.date | date:'yyyy-MM-dd'" 
+                    (ngModelChange)="newTransaction.date = $event"
+                    name="date" 
+                    class="form-control form-group date-select">
+                </td>
+                <td>
+                    <select 
+                    [(ngModel)]="newTransaction.executeStatus" 
+                    name="executeStatus"
+                    class="form-control is-execute">
+                            <option [ngValue]="false">No</option>
+                            <option [ngValue]="true">Yes</option>
+                    </select>
+                </td>
+                <!-- <td>
+                    <input 
+                    placeholder="Picture URL" 
+                    [(ngModel)]="newTransaction.billPicture" 
+                    name="billPicture" 
+                    class="form-control">
+                </td> -->
+                <td>
+                    <input 
+                    type="submit" 
+                    value="Add" 
+                    class="btn btn-default" />
+                </td>
+            </tr>
+        </table>
+    </form>>

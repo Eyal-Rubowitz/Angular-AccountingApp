@@ -22,6 +22,11 @@ import { EditMemberComponent } from './participant/edit-member/edit-member.compo
 import { appRoutes } from '../app/app-routing.module/app-routing.module';
 import { environment } from '../environments/environment.prod';
 import { DocPipe } from '../app/pipes/doc.pipe';
+import { MinDirective } from '../app/directives/validators/min.directive';
+import { MemberService } from './services/member.service';
+
+// import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
+
 // const appRoutes: Routes = [
 //   {
 //     path: 'members', 
@@ -52,7 +57,9 @@ import { DocPipe } from '../app/pipes/doc.pipe';
     TransactionComponent,
     PageNotFoundComponent,
     DocPipe,
-    EditMemberComponent
+    EditMemberComponent,
+    MinDirective,
+    // MultiselectDropdownModule
   ],
   imports: [
     BrowserModule,
@@ -66,7 +73,7 @@ import { DocPipe } from '../app/pipes/doc.pipe';
       {enableTracing: true} // <-- debugging purposes only
     )
   ],
-  providers: [],
+  providers: [MemberService],
   bootstrap: [AppComponent]
 })
 

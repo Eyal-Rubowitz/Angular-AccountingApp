@@ -11,10 +11,12 @@ import 'rxjs/add/operator/map';
     templateUrl: './members.component.html',
     styleUrls: []
   })
+  
 export class MembersComponent implements OnInit {
     private membersSource: AngularFirestoreCollection<Participant>;
     public members : Observable<Participant[]>; //Participant[];
-    public newMember : Object;//Participant;
+    public newMember : Object; //Participant;
+    
     constructor(private db: AngularFirestore){
         this.newMember = new Participant('','','',0);
     }

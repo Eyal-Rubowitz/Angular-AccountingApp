@@ -23,6 +23,12 @@ import { ActivatedRoute } from '@angular/router';
     constructor(private db: AngularFirestore, private route: ActivatedRoute,private fb: FormBuilder){
         this.form = this.fb.group({
             name: ['', Validators.required],
+            phoneNumber: ['', Validators.required],
+            email: [0, Validators.required],
+            memberBalance: [0, Validators.required],
+            memberFee: [0, Validators.required],
+            isMemberFeePaid: [false, Validators.required],
+            totalExpenses: [0, Validators.required]
         });
     } 
 

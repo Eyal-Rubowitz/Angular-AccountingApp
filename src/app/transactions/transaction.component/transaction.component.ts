@@ -1,28 +1,39 @@
-import {Component, OnInit, NgModule} from '@angular/core';
-import {FormsModule } from '@angular/forms';
+import {Component, OnInit, NgModule, transition, ElementRef, Renderer2, ViewChild} from '@angular/core';
+import {FormsModule, FormGroup } from '@angular/forms';
 import { Transaction } from '../transaction';
 import { Participant } from '../../participant/participant';
+import { MinDirective } from '../../directives/validators/min.directive';
 
 import { AngularFirestore, AngularFirestoreCollection} from "angularfire2/firestore";
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { debug } from 'util';
+import { Validators } from '@angular/forms/src/validators';
+import { NgIf } from '@angular/common';
+//import { ViewChild } from '@angular/core/src/metadata/di';
+
 
 @Component({
     selector: 'transactions',
     templateUrl: './transaction.component.html',
-    styleUrls: []
+    styleUrls: ['./transaction.component.css']
   })
 
   export class TransactionComponent implements OnInit{
     private transactionsSource: AngularFirestoreCollection<Transaction>;
     transactions : Observable<Transaction[]>;
     newTransaction : Transaction;
-    members : Participant[];
+    private membersSource: AngularFirestoreCollection<Transaction>;    
+    members : Observable<Participant[]>;
+    @ViewChild('form') myForm: ElementRef;
+    submitted : boolean;
+    // isExecuteOptions: boolean[];
+    
 
     constructor(private db: AngularFirestore){
-       this.newTransaction = new Transaction('', '', 0, new Participant('', '', ''), new Participant('', '', ''), new Date(2000, 1, 1), false, null);
+       this.newTransaction = new Transaction('', '', 0, undefined, undefined, new Date(), false, null);
     }
+    
     ngOnInit() {
       this.transactionsSource = this.db.collection<Transaction>('transactions');
       this.transactions = this.transactionsSource.snapshotChanges().map( actions => {
@@ -31,12 +42,47 @@ import { debug } from 'util';
               const id = a.payload.doc.id;
               return {id, ...data}
           })
-      });
+        });
+        
+        this.membersSource = this.db.collection<Participant>('members');
+        this.members = this.membersSource.snapshotChanges().map( actions => {
+            return actions.map(a => {
+                const data = a.payload.doc.data() as Participant;
+                const id = a.payload.doc.id;
+                return {id, ...data}
+            })
+        });
+
+      // Validators.required,
+      // Validators.minLength(2);
     }
-      foobar(foo){
-        debugger;
-        console.log(foo);
+
+    addTransaction(foobar) {
+      var data = JSON.parse(JSON.stringify(this.newTransaction));
+      data.whosPaying = this.db.doc(`members/${data.whosPaying}`).ref;
+      data.whosReciving = this.db.doc(`members/${data.whosReciving}`).ref;
+      const formElement = this.myForm.nativeElement;
+      this.submitted = true;
+
+      if(formElement.checkValidity()){
+        this.transactionsSource.add(data); // add transaction
+        // reset form completely
+        formElement.reset();
+        this.newTransaction = new Transaction('', '', 0,'', '', new Date(), false, null);
+        this.submitted = false;
       }
+
+  }
+
+  removeTransaction(transaction: Transaction){
+    this.db.doc<Transaction>(`transactions/${transaction.id}`).delete();
+  }
+
+      // foobar(foo){
+      //   debugger;
+      //   console.log(foo);
+      // }
+
         // this.members = [
         //  new Participant("camp UnBirthday", "00-0000000", "UnBirthday@burn.fun", 0),
         //  new Participant("Chashmelator Electro Wizard", "00-000?000", "HesMail", 0),
@@ -62,5 +108,8 @@ import { debug } from 'util';
         // true,
         // null)];
     
+        // selectIsExecute(event: boolean){
+          
+        // }
    
   }
