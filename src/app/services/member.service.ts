@@ -25,7 +25,16 @@ export class MemberService {
     return this.members;
    }
 
-   addMember(member : Participant) {
+   getMember(memberId : string){
+     return this.db.doc<Participant>(`members/${memberId}`).valueChanges();
+   }
+
+   updateMember(memberId : string, newValues: Object){
+    let member = this.db.doc<Participant>(`members/${memberId}`);
+    return member.update(newValues);
+   }
+
+   addMember(member : Object) {
     var data = JSON.parse(JSON.stringify(member));
     this.membersSource.add(data);
   }

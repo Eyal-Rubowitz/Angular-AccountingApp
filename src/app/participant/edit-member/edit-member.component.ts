@@ -4,11 +4,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Participant } from "../participant";
 
-import { AngularFirestore, AngularFirestoreDocument  } from "angularfire2/firestore";
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
+import { MemberService } from '../../services/member.service';
 
-//import 'rxjs/add/operator/map';
 
 @Component({
     selector: 'edit-member',
@@ -18,9 +17,8 @@ import { ActivatedRoute } from '@angular/router';
 
   export class EditMemberComponent implements OnInit{
     form: FormGroup;
-    public member : AngularFirestoreDocument<Participant>;
     public memberId : string;
-    constructor(private db: AngularFirestore, private route: ActivatedRoute,private fb: FormBuilder){
+    constructor(private memberService: MemberService, private route: ActivatedRoute,private fb: FormBuilder){
         this.form = this.fb.group({
             name: ['', Validators.required],
             phoneNumber: ['', Validators.required],
@@ -34,15 +32,13 @@ import { ActivatedRoute } from '@angular/router';
 
     ngOnInit(): void {
         this.memberId = this.route.snapshot.paramMap.get('id');
-        this.member = this.db.doc<Participant>(`members/${this.memberId}`);
-        this.member.valueChanges().subscribe(m => {
+        this.memberService.getMember(this.memberId).subscribe(m => {
             this.form.patchValue(m)
         });
-
-    }
+   }
 
     saveMember(){
-         this.member.update(this.form.value).then(r => {
+        this.memberService.updateMember(this.memberId, this.form.value).then(r => {
             // member was updated, can now redirect to /members path
         });     
     }

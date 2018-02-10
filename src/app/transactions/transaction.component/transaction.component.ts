@@ -10,6 +10,7 @@ import 'rxjs/add/operator/map';
 import { debug } from 'util';
 import { Validators } from '@angular/forms/src/validators';
 import { NgIf } from '@angular/common';
+import { MemberService } from '../../services/member.service';
 //import { ViewChild } from '@angular/core/src/metadata/di';
 
 
@@ -23,14 +24,14 @@ import { NgIf } from '@angular/common';
     private transactionsSource: AngularFirestoreCollection<Transaction>;
     transactions : Observable<Transaction[]>;
     newTransaction : Transaction;
-    private membersSource: AngularFirestoreCollection<Transaction>;    
+    //private membersSource: AngularFirestoreCollection<Transaction>;    
     members : Observable<Participant[]>;
     @ViewChild('form') myForm: ElementRef;
     submitted : boolean;
     // isExecuteOptions: boolean[];
     
 
-    constructor(private db: AngularFirestore){
+    constructor(private db: AngularFirestore, private memberService: MemberService){
        this.newTransaction = new Transaction('', '', 0, undefined, undefined, new Date(), false, null);
     }
     
@@ -44,14 +45,7 @@ import { NgIf } from '@angular/common';
           })
         });
         
-        this.membersSource = this.db.collection<Participant>('members');
-        this.members = this.membersSource.snapshotChanges().map( actions => {
-            return actions.map(a => {
-                const data = a.payload.doc.data() as Participant;
-                const id = a.payload.doc.id;
-                return {id, ...data}
-            })
-        });
+        this.members = this.memberService.getMembers();
 
       // Validators.required,
       // Validators.minLength(2);
