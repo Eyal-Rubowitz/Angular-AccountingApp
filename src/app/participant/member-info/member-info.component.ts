@@ -8,7 +8,7 @@ import { scan, map  } from 'rxjs/operators'
 
 import { TransactionService } from '../../services/transaction.service';
 import { Transaction } from '../../transactions/transaction';
-import { retry } from 'rxjs/operators/retry';
+import { DocumentReference } from '@firebase/firestore-types';
 
 @Component({
     selector: 'member-info',
@@ -24,17 +24,13 @@ import { retry } from 'rxjs/operators/retry';
     constructor(private memberService: MemberService, private transactionService: TransactionService, private route: ActivatedRoute){}
       ngOnInit(): void {
         var memberId = this.route.snapshot.paramMap.get('id');
-        this.member = this.memberService.getMember(memberId);
-        
+        this.member = this.memberService.getMember(memberId);        
         this.balance = this.transactionService.getTransactions().
-          // filter(function(grr) {
-          //   return grr.filter(function(t){ return true }) ;
-          // }).
           map(function(t){
             return t.map(function(transaction) { 
-              if((transaction.whosPaying as any).id == memberId){
+              if((transaction.whosPaying as DocumentReference).id == memberId){
                   return -transaction.amount;
-              }else if((transaction.whosReciving as any).id == memberId){
+              }else if((transaction.whosReciving as DocumentReference).id == memberId){
                 return transaction.amount;
             } else {
                 return 0;
