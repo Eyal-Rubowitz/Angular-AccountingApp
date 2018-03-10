@@ -10,7 +10,7 @@ export class MemberService {
   private membersSource: AngularFirestoreCollection<Participant>;
   //private members : Observable<Participant[]>; //Participant[];
 
-  constructor(private db: AngularFirestore) {
+  constructor(public db: AngularFirestore) {
     this.membersSource = this.db.collection<Participant>('members');
   }
 
