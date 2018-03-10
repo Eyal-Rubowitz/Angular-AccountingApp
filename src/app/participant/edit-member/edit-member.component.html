@@ -3,34 +3,73 @@
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <div class="panel panel-default">
+
                 <div class="panel-heading">
                     <h4>Edit Member</h4>
                 </div>
+                
                 <div class="panel-body">
                     <form [formGroup]="form" (submit)="saveMember()">
                         <div class="form-group">
-                        <label class="panel-title">Full Name: </label>
-                        <input formControlName="name" class="form-control">
-                        <label class="panel-title">Phone Number: </label>
-                        <input formControlName="phoneNumber" class="form-control">
-                        <label class="panel-title">Email: </label>
-                        <input formControlName="email" class="form-control">
-                        <label class="panel-title">Balence: </label>
-                        <input formControlName="memberBalance" class="form-control">
-                        <label class="panel-title">Memeber Fee: </label>
-                        <input formControlName="memberFee" class="form-control">
-                        <label class="panel-title">Is Paid: </label>
-                        <input formControlName="isMemberFeePaid" class="form-control">
-                        <label class="panel-title">Total Expenses: </label>
-                        <input formControlName="totalExpenses" class="form-control">
+                            <label class="panel-title">Full Name: </label>
+                            <input 
+                            formControlName="name" 
+                            placeholder="Participant full name"
+                            type="text"
+                            required
+                            minlength="3"
+                            maxlength="50"
+                            class="form-control form-group ng-touched ng-invalid">
+                            <!-- <div class="alert alert-dengar" *ngIf="(name.touched && submited)|| !name.valid"></div> -->
+
+                            <label class="panel-title">Phone Number: </label>
+                            <input 
+                            formControlName="phoneNumber" 
+                            placeholder="Phone Number"
+                            type="text"
+                            required
+                            minlength="9"
+                            class="form-control">
+                            
+                            <label class="panel-title">Email: </label>
+                            <input 
+                            formControlName="email" 
+                            placeholder="Email address"
+                            class="form-control">
+                            
+                            <!-- <label class="panel-title">Balence: </label>
+                            <input formControlName="memberBalance" class="form-control"> -->
+                            
+                            <label class="panel-title">Memeber Fee: </label>
+                            <input 
+                            formControlName="memberFee" 
+                            placeholder="Member fee for charge"
+                            type="number"
+                            required
+                            min="0"
+                            class="form-control">
+                            
+                            <label class="panel-title">Is member fee Paid: </label>
+                            <select 
+                            formControlName="isMemberFeePaid" 
+                            class="form-control is-execute">
+                                    <option [ngValue]="false">No</option>
+                                    <option [ngValue]="true">Yes</option>
+                            </select>
+                            <!-- <label class="panel-title">Total Expenses: </label>
+                            <input 
+                            formControlName="totalExpenses" 
+                            placeholder="Total expence"
+                            class="form-control"> -->
                         </div>
                         <div >
-                                <input type="submit" value="Save update" class="btn btn-sm btn-success"/>
-                                <br/> <br/>
-                                <button  routerLink="/members" class="btn btn-sm btn-success">Back to members</button>
+                            <input type="submit" value="Save update" class="btn btn-sm btn-success"/>
+                            <br/> <br/>
+                            <button routerLink="/members" class="btn btn-sm btn-success">Back to members</button>
                         </div> 
                     </form>
                 </div>
+
             </div>
         </div>
     </div>

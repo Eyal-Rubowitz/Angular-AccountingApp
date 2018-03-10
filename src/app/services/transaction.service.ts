@@ -24,9 +24,9 @@ export class TransactionService {
     });
    }
 
-   addTransaction(transaction : Object) {
-    var data = JSON.parse(JSON.stringify(transaction));
-    this.transactionsSource.add(data);
+   addTransaction(transaction : any) {
+    //var data = JSON.parse(JSON.stringify(transaction));
+    this.transactionsSource.add(transaction);
   }
 
   removeTransaction(transaction : Transaction){

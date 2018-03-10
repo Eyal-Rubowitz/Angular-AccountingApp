@@ -1,0 +1,16 @@
+<H3 style="text-align:center;">{{(member | async)?.name}}</H3>
+<table class="table table-striped table-bordered">
+            <tr>
+                <th>Fee</th>
+                <td>{{(member | async)?.memberFee}}</td>
+            </tr>
+            <tr>
+                <th>Is paid</th>
+                <td>{{(member | async)?.isMemberFeePaid}}</td>
+            </tr>
+            <tr>
+                <th>Transactions info</th>
+                <td></td>
+            </tr>
+
+    </table>

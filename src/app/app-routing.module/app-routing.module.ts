@@ -6,6 +6,8 @@ import { MembersComponent } from '../participant/members.component/members.compo
 import { TransactionComponent } from '../transactions/transaction.component/transaction.component';
 import { PageNotFoundComponent } from '../app-components/page-not-found.component/page-not-found.component';
 import { EditMemberComponent } from '../participant/edit-member/edit-member.component';
+import { SummaryComponent } from '../summary/summary.component/summary.component'
+import { MemberInfoComponent } from '../participant/member-info/member-info.component';
 
 import { Route } from '@angular/router/src/config';
 
@@ -26,6 +28,14 @@ export const appRoutes: Routes = [
     {
         path: 'transactions',
         component: TransactionComponent
+    },
+    {
+        path: 'summary',
+        component: SummaryComponent
+    },
+    {
+        path: 'member/:id/info',
+        component: MemberInfoComponent
     },
     {
         path: '**', 

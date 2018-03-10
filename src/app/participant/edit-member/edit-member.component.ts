@@ -38,8 +38,11 @@ import { MemberService } from '../../services/member.service';
    }
 
     saveMember(){
-        this.memberService.updateMember(this.memberId, this.form.value).then(r => {
-            // member was updated, can now redirect to /members path
-        });     
+        if(this.form.valid){
+            this.memberService.updateMember(this.memberId, this.form.value).then(r => {
+                // member was updated, can now redirect to /members path
+            })   
+            
+        }
     }
   }

@@ -10,6 +10,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { Participant } from './participant/participant';
 import { Transaction } from './transactions/transaction';
+import { SummaryComponent } from './summary/summary.component/summary.component';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 
@@ -24,6 +25,8 @@ import { environment } from '../environments/environment.prod';
 import { DocPipe } from '../app/pipes/doc.pipe';
 import { MinDirective } from '../app/directives/validators/min.directive';
 import { MemberService } from './services/member.service';
+import { TransactionService } from './services/transaction.service';
+import { MemberInfoComponent } from './participant/member-info/member-info.component';
 
 // import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 
@@ -55,10 +58,12 @@ import { MemberService } from './services/member.service';
     AppComponent,
     MembersComponent,
     TransactionComponent,
+    SummaryComponent,
     PageNotFoundComponent,
     DocPipe,
     EditMemberComponent,
     MinDirective,
+    MemberInfoComponent
     // MultiselectDropdownModule
   ],
   imports: [
@@ -73,7 +78,7 @@ import { MemberService } from './services/member.service';
       {enableTracing: true} // <-- debugging purposes only
     )
   ],
-  providers: [MemberService],
+  providers: [MemberService, TransactionService],
   bootstrap: [AppComponent]
 })
 

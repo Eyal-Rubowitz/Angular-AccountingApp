@@ -1,4 +1,4 @@
-<table class="table table-striped">
+<table class="table table-striped table-bordered">
     <thead>
     <tr>
             <th>Full Name</th>
@@ -13,7 +13,7 @@
 </thead>
 <tbody>
     <tr *ngFor="let member of members | async">
-        <td>{{member.name}}</td>
+        <a  routerLink="/member/{{member.id}}/info">{{member.name}}</a>
         <td >{{member.phoneNumber}}</td>
         <td >{{member.email}}</td>
         <td>{{member.memberBalance}}</td>
@@ -29,54 +29,62 @@
 </tbody>
 </table>
 
-<form  (submit)="addMember()">
-<table  class="table">
+<form  (submit)="addMember(form)" #memberForm>
+    <table  class="table">
         <tr>
-                <td>
-                    <input 
-                    placeholder="Full Name"
-                    type="text" 
-                    [(ngModel)]="newMember.name" 
-                    required 
-                    minlength="3"
-                    maxlength="40"
-                    name="name" 
-                    #name="ngModel" 
-                    class="form-group form-control ng-invalid ng-touched">
+            <td>
+                <input 
+                placeholder="Full Name"
+                type="text" 
+                [(ngModel)]="newMember.name" 
+                required 
+                minlength="3"
+                maxlength="40"
+                name="name" 
+                #name="ngModel" 
+                class="form-group form-control ng-invalid ng-touched">
 
-                    <div  class="alert alert-danger" *ngIf="name.touched && !name.valid">
-                        Participant name is required!
-                    </div>
-                </td>
-                <td> 
-                    <input  
-                    placeholder="Phone" 
-                    type="text"
-                    [(ngModel)]="newMember.phoneNumber" 
-                    name="phone"
-                    #phone="ngModel" 
-                    class="form-group form-control ng-invalid ng-touched">
-                </td>
-                <td> 
-                    <input  
-                    placeholder="Email" 
-                    type="email" 
-                    [(ngModel)]="newMember.email" 
-                    name="email" 
-                    #email="ngModel"
-                    class="form-group form-control ng-invalid ng-touched">
+                <div class="alert alert-danger" *ngIf="(name.touched || submitted) && !name.valid">
+                    Participant name is required!
+                </div>
+            </td>
+            <td> 
+                <input  
+                placeholder="Phone" 
+                type="tel"
+                pattern="\d{2,3}[\-\ \d]\d{7,}"
+                [(ngModel)]="newMember.phoneNumber" 
+                required
+                minlength="9"
+                name="phone"
+                #phone="ngModel" 
+                class="form-group form-control ng-invalid ng-touched">
 
-                    <div class="alert alert-danger" *ngIf="name.touched && !name.valid">
+                <div class="alert alert-danger" *ngIf="(phone.touched || submitted) && !phone.valid">
+                        Phone number is required!
+                </div>
+            </td>
+            <td> 
+                <input  
+                placeholder="Email" 
+                type="email" 
+                pattern="[a-z0-9.%+-]+@[a-z0-9.%+-]+\.[a-z]{2,3}$"
+                [(ngModel)]="newMember.email"
+                required 
+                name="email" 
+                #email="ngModel"
+                class="form-group form-control ng-invalid ng-touched">
+
+                <div class="alert alert-danger" *ngIf="(email.touched || submitted) && !email.valid">
                         Enter valid email address!
-                    </div>
-                </td>
-                <td colspan="4">
+                </div>
+            </td>
+            <td colspan="4">
                     <input 
                     type="submit" 
                     value="Add" 
-                    class="btn btn-default" />
-                </td>
-            </tr>
-</table>
-
+                    class="btn btn-default reset-form" />
+            </td>
+        </tr>
+    </table>
 </form>

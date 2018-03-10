@@ -1,7 +1,8 @@
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
-                <th>Transaction Type</th>
+                <th>Transaction</th>
+                <th>Transaction type</th>
                 <th>Who pay</th>
                 <th>Who receve</th>
                 <th>Money Amount</th>
@@ -10,9 +11,9 @@
         </tr>
     </thead>
     <tbody>
-        <!-- (click)="foobar(transaction.whosPaying)"> -->
         <tr *ngFor="let transaction of transactions | async">
                 <td>{{transaction.itemName}}</td>
+                <td>{{transaction.itemType}}</td>
                 <td>{{(transaction.whosPaying | doc | async)?.name }}</td>
                 <td>{{(transaction.whosReciving | doc | async)?.name}}</td>
                 <td>{{transaction.amount}}</td>
@@ -25,7 +26,7 @@
     </tbody>
 </table>
 
-<form (submit)="addTransaction(form)" #form>
+<form (submit)="addTransaction(form)" #transactionForm>
         <table class="table">
             <tr>
                   <td>
@@ -42,9 +43,28 @@
                     #itemName="ngModel" 
                     class="form-group form-control">
                     
-                    <div class="alert alert-danger" *ngIf="(itemName.touched || submitted) && !itemName.valid">
+                    <div class="alert alert-danger" 
+                         *ngIf="(itemName.touched || submitted) && !itemName.valid">
                         Item name is requierd!
                     </div>
+                </td>
+                <td>
+                    <select 
+                    [(ngModel)]="newTransaction.itemType"
+                    name="itemType"
+                    class="form-group form-control">
+                            <option [value]="undefined">Select type:</option>  
+                            <option 
+                                    *ngFor="let type of typeOption"
+                                    [value]="type">
+                                    {{type}}
+                            </option>
+                            <!-- <option [value]="Purchase">Camp purchase</option>
+                            <option [value]="Fee">Fee</option>
+                            <option [value]="Donation">Donation</option>
+                            <option [value]="PartyCillecting">Party Collecting</option>
+                            <option [value]="Refunds">Refunds</option> -->
+                    </select>
                 </td>
                 <!-- <td>
                     <input 
@@ -56,7 +76,7 @@
                 <td class="amount">
                     <input 
                     placeholder="Money Amount" 
-                    type="text"
+                    type="number"
                     pattern="[0-9]+"
                     [(ngModel)]="newTransaction.amount"
                     required
@@ -65,7 +85,8 @@
                     #amount="ngModel" 
                     class="form-group form-control ng-invalid ng-touched">
 
-                    <div class="alert alert-danger" *ngIf="(amount.touched  || submitted) && !amount.valid">
+                    <div class="alert alert-danger" 
+                         *ngIf="(amount.touched  || submitted) && !amount.valid">
                             Input must be greater than zero!
                     </div>
 
@@ -85,13 +106,13 @@
                         {{member.name}}
                         </option>
                     </select>
-                    <div class="alert alert-danger" *ngIf="(whosPaying.touched || submitted) && !whosPaying.valid">
+                    <div class="alert alert-danger" 
+                         *ngIf="(whosPaying.touched || submitted) && !whosPaying.valid">
                             Choose who's paying!
                     </div>
                 </td>
                 <td>
                     <select 
-                   
                     [(ngModel)]="newTransaction.whosReciving" 
                     required
                     ngModel
@@ -105,7 +126,8 @@
                         {{member.name}}
                         </option>
                     </select>
-                    <div class="alert alert-danger" *ngIf="(whosReciving.touched || submitted) && !whosReciving.valid">
+                    <div class="alert alert-danger" 
+                         *ngIf="(whosReciving.touched || submitted) && !whosReciving.valid">
                             Choose who's reciving!
                     </div>
                 </td>
@@ -119,12 +141,15 @@
                     class="form-control form-group date-select">
                 </td>
                 <td>
+                    <p>Is action done: </p>
+                </td>
+                <td>
                     <select 
-                    [(ngModel)]="newTransaction.executeStatus" 
+                    [(ngModel)]="newTransaction.executeStatus"
                     name="executeStatus"
                     class="form-control is-execute">
-                            <option [ngValue]="false">No</option>
-                            <option [ngValue]="true">Yes</option>
+                        <option [ngValue]="false">No</option>
+                        <option [ngValue]="true">Yes</option>
                     </select>
                 </td>
                 <!-- <td>
@@ -138,7 +163,7 @@
                     <input 
                     type="submit" 
                     value="Add" 
-                    class="btn btn-default" />
+                    class="btn btn-default reset-form" />
                 </td>
             </tr>
         </table>
