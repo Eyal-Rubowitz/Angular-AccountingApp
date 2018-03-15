@@ -1,14 +1,17 @@
 import { Component, OnInit, NgModule } from '@angular/core';
+
 import { Participant } from '../participant';
+import { Transaction } from '../../transactions/transaction';
+
 import { MemberService } from '../../services/member.service';
+import { TransactionService } from '../../services/transaction.service';
+
+import { DocumentReference } from '@firebase/firestore-types';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-//import 'rxjs/add/operator/map';
 import { scan, map  } from 'rxjs/operators'
+//import 'rxjs/add/operator/map';
 
-import { TransactionService } from '../../services/transaction.service';
-import { Transaction } from '../../transactions/transaction';
-import { DocumentReference } from '@firebase/firestore-types';
 
 @Component({
     selector: 'member-info',

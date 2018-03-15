@@ -1,0 +1,35 @@
+<p>
+  file-upload works!
+</p>
+<div class="dropzone"
+     dropZone
+     (hovered)="toggleHover($event)"
+     (dropped)="startUpload($event)"
+     [class.hovering]="isHovering">
+
+     <h3>AngularFire Drop Zone</h3>
+     <p>Drag ang Drop a file</p>
+     <div>
+       <label class="file-label"></label>
+       <input type="file" (change)="startUpload()$event.target.files">
+       
+     </div>
+</div>
+
+<div *ngIf="persentage | async as pct">
+  <progress [value]="pct" max="100"></progress>
+</div>
+
+<div *ngIf="(snapshot | async) as snap">
+  {{ snap.bytesTransferred | fileSize }} of {{snap.totalBytes | fileSize }}
+
+  <div *ngIf="downloadURL | async as url">
+    <h3>Results!</h3>
+    <img [src]="url">
+    <a [herf]="url">Download Me!</a>
+  </div>
+
+  <button (click)="task.pause()" [disabled]="!isActive(snap)">Pause</button>
+  <button (click)="task.cancel()" [disabled]="!isActive(snap)">cancel</button>
+  <button (click)="task.resume()" [disabled]="!(snap?.state === 'paused')">Resume</button>
+</div>

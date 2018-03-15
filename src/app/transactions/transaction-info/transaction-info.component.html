@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="panel panel-default">
+
+                <form [formGroup]="form" (submit)="saveTransactionInfo(form)">
+                    <table class="table table-striped table-bordered">
+
+                        <tr>
+                            <td style="text-align:center;">
+                                <u>
+                                    <H3>Transaction: &nbsp; {{(transactionToEdit | async)?.itemName}}</H3>
+                                </u>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h4>Transaction Description:</h4>
+                                <textarea 
+                                    formControlName="paymentDescription" 
+                                    type="text" 
+                                    rows="10" 
+                                    cols="80"
+                                    class="form-control form-group">
+                                </textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <!-- <td>
+                                <p>Drag & drop image file here:</p>
+                            </td> -->
+                            <td>
+                                <div class="dropzone"
+                                     dropzone
+                                     (hovered)="toggleHover($event)"
+                                     (dropped)="startUpload($event)"
+                                     [class.hovering]="isHovering">
+
+                                     <h3>AngularFire Drop Zone</h3>
+                                     <p>Drag & Drop an image file here:</p>
+                                     <div class="file">
+                                         <label class="file-label">
+                                            <input type="file" (change)="startUpload($event.target.files)">
+                                         </label>
+                                     </div>
+                                     
+                                </div>
+                            </td>
+                            <td >
+                                <img formControlName="billPicture" src="url" alt="Bill">
+                            </td>
+                        </tr>
+                        <tr>
+                            <br/>
+                            <input 
+                                type="submit" 
+                                value="Seve changes" 
+                                class="btn btn-default btn-success" />
+                        </tr>
+                    </table>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

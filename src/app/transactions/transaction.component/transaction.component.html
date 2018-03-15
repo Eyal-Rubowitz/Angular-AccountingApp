@@ -12,10 +12,10 @@
     </thead>
     <tbody>
         <tr *ngFor="let transaction of transactions | async">
-                <td>{{transaction.itemName}}</td>
+                <td><a routerLink="/transaction/{{transaction.id}}/info">{{transaction.itemName}}</a></td>
                 <td>{{transaction.itemType}}</td>
-                <td>{{(transaction.whosPaying | doc | async)?.name }}</td>
-                <td>{{(transaction.whosReciving | doc | async)?.name}}</td>
+                <td><a routerLink="/member/{{transaction.whosPaying.id}}/info">{{(transaction.whosPaying | doc | async)?.name }}</a></td>
+                <td><a routerLink="/member/{{transaction.whosReciving.id}}/info">{{(transaction.whosReciving | doc | async)?.name}}</a></td>
                 <td>{{transaction.amount}}</td>
                 <td>{{transaction.date | date : 'shortTime' : '+0200'}}</td>
                 <td>

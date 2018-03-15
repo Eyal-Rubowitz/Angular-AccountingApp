@@ -10,6 +10,7 @@ import { SummaryComponent } from '../summary/summary.component/summary.component
 import { MemberInfoComponent } from '../participant/member-info/member-info.component';
 
 import { Route } from '@angular/router/src/config';
+import { TransactionInfoComponent } from '../transactions/transaction-info/transaction-info.component';
 
 export const appRoutes: Routes = [
     {
@@ -24,18 +25,23 @@ export const appRoutes: Routes = [
     {
         path: 'member/:id/edit',
         component: EditMemberComponent
+    },  
+    {
+        path: 'member/:id/info',
+        component: MemberInfoComponent
     },
     {
         path: 'transactions',
         component: TransactionComponent
     },
+    
+    {
+        path: 'transaction/:id/info',
+        component: TransactionInfoComponent
+    },
     {
         path: 'summary',
         component: SummaryComponent
-    },
-    {
-        path: 'member/:id/info',
-        component: MemberInfoComponent
     },
     {
         path: '**', 

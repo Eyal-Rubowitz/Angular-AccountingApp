@@ -24,10 +24,20 @@ export class TransactionService {
     });
    }
 
+   getTransaction(transactionId : string){
+    return this.db.doc<Transaction>(`transactions/${transactionId}`).valueChanges();
+  }
+
    addTransaction(transaction : any) {
     //var data = JSON.parse(JSON.stringify(transaction));
     this.transactionsSource.add(transaction);
   }
+
+  updateTransaction(transactionId : string, newValues: Object){
+    let transaction = this.db.doc<Transaction>(`transactions/${transactionId}`);
+    debugger;
+    return transaction.update(newValues);
+   }
 
   removeTransaction(transaction : Transaction){
     this.db.doc<Transaction>(`transactions/${transaction.id}`).delete();
